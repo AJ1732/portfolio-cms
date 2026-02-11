@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# block any private paths if needed:
+# Disallow: /admin/
+
+Sitemap: https://ejemeniboi.com/sitemap.xml

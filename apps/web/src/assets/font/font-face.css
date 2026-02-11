@@ -1,0 +1,19 @@
+/* Neue Einstellung — Light (300) */
+@font-face {
+  font-family: "Neue Einstellung";
+  font-style: normal;
+  font-weight: 300;
+  src:
+    local("Neue Einstellung Light"),
+    url("/fonts/neue-einstellung-light/font.woff") format("woff");
+}
+
+/* Rage Italic */
+@font-face {
+  font-family: "Rage Italic";
+  font-style: normal;
+  font-weight: normal;
+  src:
+    local("Rage Italic"),
+    url("/fonts/rage-italic/RAGE_1.woff") format("woff");
+}

@@ -1,0 +1,58 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "lint": "eslint . --fix",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy",
+    "import:stacks": "node scripts/import-stacks.js",
+    "import:snippets": "node scripts/import-snippets.js",
+    "import:certificates": "node scripts/import-certificates.js",
+    "import:contact-links": "node scripts/import-contact-links.js",
+    "update:stack-alts": "node scripts/update-stack-alts.js",
+    "predev": "pnpm run typegen --enforce-required-fields",
+    "prebuild": "pnpm run typegen --enforce-required-fields",
+    "typegen": "sanity schema extract && sanity typegen generate --enforce-required-fields"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/icons": "^3.7.4",
+    "@sanity/image-url": "^2.0.3",
+    "@sanity/orderable-document-list": "^1.4.2",
+    "@sanity/vision": "^5.9.0",
+    "lucide-react": "^0.563.0",
+    "react": "^19.1",
+    "react-dom": "^19.1",
+    "sanity": "^5.9.0",
+    "sanity-plugin-documents-pane": "^3.0.2",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@sanity/client": "^6.27.0",
+    "@sanity/eslint-config-studio": "^6.0.0",
+    "@types/react": "^19.1",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
+    "eslint": "^9.28",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "^3.5",
+    "typescript": "^5.8"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  }
+}

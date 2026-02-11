@@ -1,0 +1,432 @@
+@import "tailwindcss";
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  /* Colors */
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Spacing */
+  --spacing: max(0.25vw, 0.25rem);
+
+  /* Viewport */
+  --vw: 1vw;
+  --vh: 1vh;
+  --vw100: calc(var(--vw) * 100);
+  --vh100: calc(var(--vh) * 100);
+  --heading-height: calc(var(--vh100) - 44rem);
+}
+
+/* ==================== THEME VARIABLES ==================== */
+@theme {
+  /* Breakpoints */
+  --breakpoint-3xl: 1600px;
+
+  /* Shadows */
+  --shadow-xs: 0px 1px 2px 0px rgba(10, 13, 18, 0.05);
+
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-zinc-200-50: #ececef;
+
+  /* Fonts */
+  --font-josefin-sans: var(--font-josefin-sans), system-ui;
+  --font-montserrat: var(--font-montserrat), system-ui;
+  --font-bebas-neue: var(--font-bebas-neue), system-ui;
+  --font-rage-italic: var(--font-rage-italic), cursive;
+  --font-bonheur-royale: var(--font-bonheur-royale), cursive;
+  --font-neue-einstellung: var(--font-neue-einstellung), sans-serif;
+
+  /* Grid Templates */
+  --grid-template-columns-auto-fit-20: repeat(auto-fit, minmax(20rem, 1fr));
+  --grid-template-columns-clamp-2-56: 20rem 1fr;
+  --grid-template-columns-clamp-3-56: 22rem 1fr minmax(52vw, 52rem);
+  --grid-template-columns-clamp-reverse-2-40: clamp(40rem, 8vw, 56rem) 1fr;
+  --grid-template-columns-clamp-3-14: clamp(14rem, 8vw, 56rem) 1fr
+    clamp(14rem, 8vw, 56rem);
+  --grid-template-columns-clamp-3-20: clamp(20rem, 8vw, 56rem) 1fr
+    clamp(20rem, 8vw, 56rem);
+  --grid-template-columns-clamp-3-25: clamp(25rem, 8vw, 56rem) 1fr
+    clamp(25rem, 8vw, 56rem);
+
+  /* Grid Auto Rows */
+  --grid-auto-rows-min-17: minmax(17rem, auto);
+
+  /* Easing Functions */
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* Animations */
+  --animate-slug: slug 1s infinite ease-in-out;
+}
+
+/* ==================== KEYFRAMES ==================== */
+@keyframes slug {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ==================== SONNER TOAST DESCRIPTION ==================== */
+/* Pill-style description (matches use-clipboard), by type. Enter/exit: ease-out. */
+[data-sonner-toast] [data-description] {
+  transition: opacity 200ms ease-out;
+}
+
+[data-sonner-toast][data-type="default"] [data-description],
+[data-sonner-toast][data-type="normal"] [data-description] {
+  background-color: rgb(255 247 237 / 0.8); /* orange-50/80 */
+}
+
+[data-sonner-toast][data-type="success"] [data-description] {
+  background-color: rgb(236 253 245 / 0.8); /* emerald-50/80 */
+}
+
+[data-sonner-toast][data-type="error"] [data-description] {
+  background-color: oklch(97.1% 0.013 17.38); /* red-50 */
+  color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sonner-toast] [data-description] {
+    transition: none;
+  }
+}
+
+/* ==================== BASE STYLES ==================== */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-neutral-200, currentcolor);
+    --tw-ring-color: var(--color-neutral-200, currentcolor);
+    outline-color: var(--color-orange-200, currentcolor);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    color: white;
+    background: #f97316;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-[100vw] bg-[#71717bf2];
+    border: 2px #0a0a0a solid;
+    transition: all 200ms ease-in-out;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background-color: #71717b;
+    border: none;
+  }
+
+  .scroll-transparent::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll-transparent::-webkit-scrollbar-thumb {
+    border: 2px white solid;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    scroll-behavior: smooth;
+    @apply lg:text-lg-expand;
+  }
+
+  section {
+    scroll-margin-top: 100px;
+  }
+
+  button {
+    @apply ease-out-cubic cursor-pointer border-0 bg-transparent transition-transform duration-200 outline-none active:scale-[0.98];
+  }
+
+  button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-orange-500;
+  }
+  pre:not(.shiki) {
+    @apply mt-6 overflow-x-auto bg-neutral-950 p-6 text-sm leading-relaxed text-neutral-100 [&>code]:bg-transparent [&>code]:text-white;
+  }
+
+  /* Shiki syntax-highlighted code blocks */
+  .shiki-wrapper pre.shiki {
+    @apply mt-6 overflow-x-auto rounded-md bg-neutral-50! p-6 text-sm leading-relaxed;
+  }
+
+  .shiki-wrapper pre.shiki code {
+    @apply rounded-none bg-transparent p-0 text-[1em];
+    color: inherit;
+  }
+
+  .shiki-wrapper pre.shiki code .line {
+    @apply inline-block w-full;
+  }
+
+  code {
+    @apply rounded bg-orange-50/70 py-0.5 pr-0.5 pl-1 text-[0.8em] text-orange-600;
+  }
+
+  .section-heading {
+    @apply text-3xl-expand md:text-4xl-expand lg:text-6xl-expand relative max-lg:py-2 max-lg:text-center;
+  }
+}
+
+/* ==================== LAYOUT UTILITIES ==================== */
+@utility content-grid {
+  --padding-inline: 1rem;
+  --content-max-width: max(80rem, 80vw);
+  --breakout-max-width: max(90rem, 90vw);
+  --layout-max-width: max(90rem, 90vw);
+
+  --breakout-size: calc(
+    (var(--breakout-max-width) - var(--content-max-width)) / 2
+  );
+
+  display: grid;
+  grid-template-columns:
+    [full-width-start]
+    minmax(var(--padding-inline), 1fr)
+    [breakout-start]
+    minmax(0, var(--breakout-size))
+    [content-start]
+    min(100% - (var(--padding-inline) * 2), var(--content-max-width))
+    [content-end]
+    minmax(0, var(--breakout-size))
+    [breakout-end]
+    minmax(var(--padding-inline), 1fr)
+    [full-width-end];
+
+  & > :not(.breakout, .full-width) {
+    grid-column: content;
+  }
+
+  &.line > :not(.breakout, .full-width) {
+    @apply border border-y-0 border-dotted;
+  }
+
+  & > .breakout {
+    grid-column: breakout;
+  }
+
+  & > .full-width {
+    grid-column: full-width;
+  }
+}
+
+@utility breakout {
+  .content-grid > & {
+    grid-column: breakout;
+  }
+}
+
+@utility full-width {
+  .content-grid > & {
+    grid-column: full-width;
+  }
+}
+
+@utility content-grid-flow {
+  --padding-inline: 1rem;
+  --content-max-width: max(80rem, 80vw);
+  --breakout-max-width: max(90rem, 90vw);
+  --layout-max-width: max(90rem, 90vw);
+
+  --breakout-size: calc(
+    (var(--breakout-max-width) - var(--content-max-width)) / 2
+  );
+
+  display: grid;
+  grid-template-columns:
+    [full-width-start]
+    minmax(var(--padding-inline), 1fr)
+    [breakout-start]
+    minmax(0, var(--breakout-size))
+    [content-start]
+    min(100% - (var(--padding-inline) * 2), var(--content-max-width))
+    minmax(0, var(--breakout-size))
+    minmax(var(--padding-inline), 1fr)
+    [full-width-end];
+  padding-right: var(--padding-inline);
+
+  & > :not(.breakout, .full-width) {
+    grid-column: content;
+  }
+
+  & > .breakout {
+    grid-column: breakout;
+  }
+
+  & > .full-width {
+    grid-column: full-width;
+  }
+}
+
+@utility breakout-flow {
+  .content-grid-flow > & {
+    grid-column: breakout;
+  }
+}
+
+@utility full-width-flow {
+  .content-grid-flow > & {
+    grid-column: full-width;
+  }
+}
+
+/* ==================== TYPOGRAPHY UTILITIES ==================== */
+@utility text-header {
+  font-size: min(calc(var(--heading-height) * 0.4), calc(var(--vw) * 16));
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-standing {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+}
+
+@utility text-xs-expand {
+  font-size: max(0.75rem, 0.75vw);
+}
+
+@utility text-sm-expand {
+  font-size: max(0.875rem, 0.85vw);
+}
+
+@utility text-base-expand {
+  font-size: max(1rem, 1vw);
+}
+
+@utility text-lg-expand {
+  font-size: max(1.125rem, 1.25vw);
+}
+
+@utility text-xl-expand {
+  font-size: max(1.25rem, 1.25vw);
+}
+
+@utility text-2xl-expand {
+  font-size: max(1.5rem, 1.5vw);
+}
+
+@utility text-3xl-expand {
+  font-size: max(1.875rem, 1.5vw);
+}
+
+@utility text-4xl-expand {
+  font-size: max(2.25rem, 2.25vw);
+}
+
+@utility text-5xl-expand {
+  font-size: max(3rem, 3vw);
+}
+
+@utility text-6xl-expand {
+  font-size: max(3.75rem, 3.75vw);
+}
+
+@utility text-7xl-expand {
+  font-size: max(4.5rem, 4.5vw);
+}
+
+@utility text-8xl-expand {
+  font-size: max(6rem, 6vw);
+}
+
+@utility text-9xl-expand {
+  font-size: max(8rem, 8vw);
+}
+
+/* ==================== SCROLLBAR UTILITIES ==================== */
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==================== VISUAL UTILITIES ==================== */
+@utility x-gradient {
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 1) 80%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+@utility no-copy {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* ==================== INTERACTION UTILITIES ==================== */
+@utility slide-siblings {
+  & > *:not(:first-child) {
+    transition:
+      transform 300ms ease-in-out,
+      colors 200ms ease-in-out;
+  }
+
+  &:hover > *:not(:first-child) {
+    transform: translateX(-1.5rem);
+  }
+}
+
+@utility custom-underline-dots {
+  text-decoration: none;
+  background-image: linear-gradient(
+    to right,
+    oklch(55.6% 0 0) 30%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: 0 90%;
+  background-size: 15px 2px;
+  background-repeat: repeat-x;
+}
+
+@utility custom-underline-round-dots {
+  --color-underline: oklch(55.6% 0 0);
+
+  text-decoration: none;
+  background-image: radial-gradient(
+    circle,
+    var(--color-underline) 50%,
+    transparent 55%
+  );
+  background-position: 0 90%;
+  background-size: 15px 2px;
+  background-repeat: repeat-x;
+
+  &:hover {
+    --color-underline: oklch(70.5% 0.213 47.604);
+  }
+}

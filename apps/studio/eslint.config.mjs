@@ -1,0 +1,57 @@
+import studio from '@sanity/eslint-config-studio'
+import prettier from 'eslint-plugin-prettier'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import importPlugin from 'eslint-plugin-import'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import typescriptParser from '@typescript-eslint/parser'
+
+export default [
+  ...studio,
+  {
+    ignores: ['dist', 'node_modules', '.sanity'],
+    files: ['**/*.ts', '**/*.tsx'],
+    plugins: {
+      prettier,
+      'simple-import-sort': simpleImportSort,
+      import: importPlugin,
+      '@typescript-eslint': typescriptEslint,
+    },
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        project: './tsconfig.json',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'prettier/prettier': 'error',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+      '@typescript-eslint/consistent-type-imports': ['error', {prefer: 'type-imports'}],
+      'import/no-default-export': 'error',
+    },
+  },
+  {
+    files: ['**/sanity.config.ts', '**/sanity.cli.ts'],
+    rules: {
+      'import/no-default-export': 'off',
+    },
+  },
+  {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        Buffer: 'readonly',
+        setTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearTimeout: 'readonly',
+        clearInterval: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+    },
+  },
+]
