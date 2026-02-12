@@ -173,9 +173,9 @@ export type ProjectDemo = {
   };
 };
 
-export type Post = {
+export type Writings = {
   _id: string;
-  _type: "post";
+  _type: "writings";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -368,7 +368,7 @@ export type AllSanitySchemaTypes =
   | ProjectLinks
   | SanityFileAssetReference
   | ProjectDemo
-  | Post
+  | Writings
   | Slug
   | Project
   | SanityVideoMetadataPlayback
@@ -386,7 +386,7 @@ export type AllSanitySchemaTypes =
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
-// Source: ../portfolio-next/src/lib/sanity/queries.ts
+// Source: ../web/src/lib/sanity/queries.ts
 // Variable: STACKS_QUERY
 // Query: *[_type=="stack"]{    name,    key,    icon {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop}  }
 export type STACKS_QUERY_RESULT = Array<{
@@ -418,7 +418,7 @@ export type STACKS_QUERY_RESULT = Array<{
   } | null;
 }>;
 
-// Source: ../portfolio-next/src/lib/sanity/queries.ts
+// Source: ../web/src/lib/sanity/queries.ts
 // Variable: SNIPPETS_QUERY
 // Query: *[_type=="snippet"] | order(orderRank) {    _id,    text  }
 export type SNIPPETS_QUERY_RESULT = Array<{
@@ -426,7 +426,7 @@ export type SNIPPETS_QUERY_RESULT = Array<{
   text: string | null;
 }>;
 
-// Source: ../portfolio-next/src/lib/sanity/queries.ts
+// Source: ../web/src/lib/sanity/queries.ts
 // Variable: CERTIFICATES_QUERY
 // Query: *[_type=="certificate"] | order(orderRank) {    _id,    title,    "issuingOrg": issuingOrg -> name,    link  }
 export type CERTIFICATES_QUERY_RESULT = Array<{
@@ -436,7 +436,7 @@ export type CERTIFICATES_QUERY_RESULT = Array<{
   link: string | null;
 }>;
 
-// Source: ../portfolio-next/src/lib/sanity/queries.ts
+// Source: ../web/src/lib/sanity/queries.ts
 // Variable: GALLERY_QUERY
 // Query: *[_type=="gallery"] | order(orderRank) {    title,    images[] {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop}  }
 export type GALLERY_QUERY_RESULT = Array<{
@@ -467,9 +467,9 @@ export type GALLERY_QUERY_RESULT = Array<{
   }> | null;
 }>;
 
-// Source: ../portfolio-next/src/lib/sanity/queries.ts
+// Source: ../web/src/lib/sanity/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type=="project"] | order(orderRank) {    title,    "slug": slug.current,    description,    favicon {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop},    demo {      src {  asset->{    url  }},      thumbnail {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop}    },    links,    "stacks": stacks[] -> { name, key, icon {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop}}  }
+// Query: *[_type=="project"] | order(orderRank) {    title,    "slug": slug.current,    description,    favicon {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop},    demo {      src {  asset->{    url  }},      thumbnail {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop}    },    links,    "stacks": stacks[] -> { name, key }  }
 export type PROJECTS_QUERY_RESULT = Array<{
   title: string | null;
   slug: string | null;
@@ -533,34 +533,10 @@ export type PROJECTS_QUERY_RESULT = Array<{
   stacks: Array<{
     name: string | null;
     key: string | null;
-    icon: {
-      asset: {
-        _ref: null;
-        _type: "sanity.imageAsset";
-        url: string | null;
-        metadata: {
-          lqip: string | null;
-          palette: {
-            dominant: {
-              background: string | null;
-              foreground: string | null;
-            } | null;
-          } | null;
-          dimensions: {
-            width: number | null;
-            height: number | null;
-            aspectRatio: number | null;
-          } | null;
-        } | null;
-      } | null;
-      alt: string | null;
-      hotspot: SanityImageHotspot | null;
-      crop: SanityImageCrop | null;
-    } | null;
   }> | null;
 }>;
 
-// Source: ../portfolio-next/src/lib/sanity/queries.ts
+// Source: ../web/src/lib/sanity/queries.ts
 // Variable: CONTACTS_QUERY
 // Query: *[_type=="contactLink"] {    key,    name,    link  }
 export type CONTACTS_QUERY_RESULT = Array<{
@@ -577,7 +553,7 @@ declare module "@sanity/client" {
     '\n  *[_type=="snippet"] | order(orderRank) {\n    _id,\n    text\n  }\n': SNIPPETS_QUERY_RESULT;
     '\n  *[_type=="certificate"] | order(orderRank) {\n    _id,\n    title,\n    "issuingOrg": issuingOrg -> name,\n    link\n  }\n': CERTIFICATES_QUERY_RESULT;
     '\n  *[_type=="gallery"] | order(orderRank) {\n    title,\n    images[] {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n}\n  }\n': GALLERY_QUERY_RESULT;
-    '\n  *[_type=="project"] | order(orderRank) {\n    title,\n    "slug": slug.current,\n    description,\n    favicon {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n},\n    demo {\n      src {\n  asset->{\n    url\n  }\n},\n      thumbnail {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n}\n    },\n    links,\n    "stacks": stacks[] -> { name, key, icon {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n}}\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_type=="project"] | order(orderRank) {\n    title,\n    "slug": slug.current,\n    description,\n    favicon {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n},\n    demo {\n      src {\n  asset->{\n    url\n  }\n},\n      thumbnail {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n}\n    },\n    links,\n    "stacks": stacks[] -> { name, key }\n  }\n': PROJECTS_QUERY_RESULT;
     '\n  *[_type=="contactLink"] {\n    key,\n    name,\n    link\n  }\n': CONTACTS_QUERY_RESULT;
   }
 }

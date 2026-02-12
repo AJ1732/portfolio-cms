@@ -21,6 +21,6 @@ export const structure: StructureResolver = (S, context) =>
       // S.divider(),
       // ...S.documentTypeListItems().filter((item) => item.getId() !== 'project'),
 
-      S.divider().title('Blog'),
-      S.documentTypeListItem('post').title('Blog Posts'),
+      S.divider().title('Posts'),
+      S.documentTypeListItem('writings').title('Writings'),
     ])

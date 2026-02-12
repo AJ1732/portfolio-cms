@@ -29,6 +29,38 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Deploy on Netlify
+
+This app is set up for Netlify from the **monorepo root** (this repo). Use the config in `apps/web/netlify.toml`.
+
+1. **Connect the repo**  
+   In [Netlify](https://app.netlify.com): Add new site → Import an existing project → choose your Git provider and this repo.
+
+2. **Build settings**
+   - **Base directory:** leave empty (build from repo root).
+   - **Package directory:** `apps/web` (so Netlify uses `apps/web/netlify.toml` and the Next.js app).
+   - Build command and publish directory are read from `netlify.toml`; the Essential Next.js plugin will handle the output.
+
+3. **Environment variables**  
+   In **Site settings → Environment variables**, add:
+
+   **Sanity (required)**
+   - `NEXT_PUBLIC_SANITY_PROJECT_ID`
+   - `NEXT_PUBLIC_SANITY_DATASET`
+   - `NEXT_PUBLIC_SANITY_API_VERSION`
+
+   **Contact form / EmailJS (required)**
+   - `NEXT_PUBLIC_SERVICE_ID`
+   - `NEXT_PUBLIC_TEMPLATE_ID`
+   - `NEXT_PUBLIC_PUBLIC_KEY`
+
+   **Optional (Sanity)**
+   - `SANITY_API_READ_TOKEN`
+   - `SANITY_API_WRITE_TOKEN`
+
+4. **Deploy**  
+   Trigger a deploy; the build runs `pnpm install` and `pnpm --filter portfolio-next build` from the repo root. Builds are skipped when only `apps/studio` or unrelated files change (see `ignore` in `netlify.toml`).
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

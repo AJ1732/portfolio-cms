@@ -858,7 +858,7 @@
     }
   },
   {
-    "name": "post",
+    "name": "writings",
     "type": "document",
     "attributes": {
       "_id": {
@@ -871,7 +871,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "post"
+          "value": "writings"
         }
       },
       "_createdAt": {
