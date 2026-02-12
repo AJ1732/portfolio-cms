@@ -1,13 +1,17 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { draftMode } from "next/headers";
 import Script from "next/script";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 
 import { bebasNeue, neueEinstellung } from "@/assets/font/next-font";
+import { DisableDraftMode } from "@/components/elements/disable-draft-mode";
 import { Footer, Navigation } from "@/components/layout";
 import { getContacts } from "@/lib/sanity/getters";
+import { SanityLive } from "@/lib/sanity/live";
 import { Provider } from "@/provider";
 
 export const metadata: Metadata = {
@@ -123,6 +127,13 @@ export default async function RootLayout({
           <main className="min-h-[calc(100dvh-4rem)] border-b">{children}</main>
           <Footer />
         </Provider>
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <DisableDraftMode />
+            <VisualEditing />
+          </>
+        )}
         <Toaster
           closeButton
           position="top-center"

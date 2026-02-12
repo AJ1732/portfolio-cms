@@ -8,6 +8,9 @@ export const sanityClient = createClient({
   dataset: SANITY_ENV.DATASET,
   apiVersion: SANITY_ENV.API_VERSION,
   useCdn: true,
+  stega: {
+    studioUrl: "https://aj1732-portfolio.sanity.studio",
+  },
 });
 
 const builder = createImageUrlBuilder(sanityClient);

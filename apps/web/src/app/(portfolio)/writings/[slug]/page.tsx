@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { ReactQueryToastPromiseExample } from "@/components/display";
 import { FactCard } from "@/components/elements";
+import { getWritings } from "@/lib/sanity/getters";
 import {
   ArticleSection,
   CodeBlock,
@@ -13,7 +14,12 @@ export default async function BlogPostPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug: number } = await params;
+  const { slug } = await params;
+
+  // Fetch all writings (cached) to calculate article number
+  const writings = await getWritings();
+  const articleIndex = writings.findIndex((w) => w.slug === slug);
+  const articleNumber = articleIndex !== -1 ? articleIndex + 1 : 1;
 
   return (
     <div
@@ -23,7 +29,7 @@ export default async function BlogPostPage({
       }
     >
       <WritingHeader
-        number={number}
+        number={articleNumber}
         title={
           <>
             Using React Query and{" "}

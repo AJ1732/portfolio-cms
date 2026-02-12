@@ -1,4 +1,5 @@
 import { createStaticQuery } from "./cached-fetch";
+import { createLiveQuery } from "./live-fetch";
 import {
   CERTIFICATES_QUERY,
   CONTACTS_QUERY,
@@ -6,6 +7,7 @@ import {
   PROJECTS_QUERY,
   SNIPPETS_QUERY,
   STACKS_QUERY,
+  WRITINGS_QUERY,
 } from "./queries";
 
 // ============================================
@@ -42,3 +44,4 @@ export const getProjects = createStaticQuery<Project[]>(
   {},
   { revalidate: 120 },
 );
+export const getWritings = createLiveQuery<Writing[]>(WRITINGS_QUERY);

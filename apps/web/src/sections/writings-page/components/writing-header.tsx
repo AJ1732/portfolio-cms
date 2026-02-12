@@ -3,7 +3,7 @@ import Link from "next/link";
 import { VSChevronLeft } from "@/assets/svgs";
 
 interface WritingHeaderProps {
-  number: string;
+  number: number;
   title: React.ReactNode;
   description: React.ReactNode;
   publishedAt: {

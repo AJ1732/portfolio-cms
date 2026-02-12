@@ -1,7 +1,10 @@
+import {codeInput} from '@sanity/code-input'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
+import {presentationTool} from 'sanity/presentation'
 import {structureTool} from 'sanity/structure'
 
+import {resolve} from './src/presentation/resolve'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
 import {defaultDocumentNode} from './src/structure/default-document-node'
@@ -17,7 +20,23 @@ export default defineConfig({
     enabled: true,
   },
 
-  plugins: [structureTool({structure, defaultDocumentNode}), visionTool()],
+  plugins: [
+    structureTool({structure, defaultDocumentNode}),
+    presentationTool({
+      resolve,
+      previewUrl: {
+        origin:
+          typeof window !== 'undefined' && window.location.hostname === 'localhost'
+            ? 'http://localhost:3000'
+            : 'https://ejemeniboi.com',
+        previewMode: {
+          enable: '/api/draft-mode/enable',
+        },
+      },
+    }),
+    visionTool(),
+    codeInput(),
+  ],
 
   schema: {
     types: schemaTypes,

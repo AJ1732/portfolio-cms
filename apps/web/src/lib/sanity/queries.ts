@@ -90,3 +90,11 @@ export const CONTACTS_QUERY = defineQuery(`
     link
   }
 `);
+
+export const WRITINGS_QUERY = defineQuery(`
+  *[_type=="writings"] | order(_createdAt asc) {
+    title,
+    "slug": slug.current,
+    description,
+  }
+`);
