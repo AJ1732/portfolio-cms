@@ -1,5 +1,5 @@
-import type { QueryParams } from "next-sanity";
 import { unstable_cache } from "next/cache";
+import type { QueryParams } from "next-sanity";
 import { cache } from "react";
 
 import { sanityClient } from "./client";

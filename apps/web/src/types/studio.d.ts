@@ -186,9 +186,13 @@ export type Writings = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal";
+    style?: "normal" | "h1";
     listItem?: never;
-    markDefs?: null;
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
     level?: number;
     _type: "block";
     _key: string;
@@ -202,11 +206,24 @@ export type Writings = {
     }>;
     style?: "normal";
     listItem?: never;
-    markDefs?: null;
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
     level?: number;
     _type: "block";
     _key: string;
   }>;
+  metadataImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  componentID?: string;
   slug?: Slug;
   body?: Array<
     | {
@@ -235,6 +252,9 @@ export type Writings = {
         _type: "block";
         _key: string;
       }
+    | ({
+        _key: string;
+      } & Table)
     | {
         asset?: SanityImageAssetReference;
         media?: unknown;
@@ -322,6 +342,20 @@ export type SanityVideo = {
   _type: "sanity.video";
   asset?: unknown;
   media?: unknown;
+};
+
+export type Table = {
+  _type: "table";
+  rows?: Array<
+    {
+      _key: string;
+    } & TableRow
+  >;
+};
+
+export type TableRow = {
+  _type: "tableRow";
+  cells?: Array<string>;
 };
 
 export type Code = {
@@ -452,6 +486,8 @@ export type AllSanitySchemaTypes =
   | SanityVideoMetadata
   | SanityVideoAsset
   | SanityVideo
+  | Table
+  | TableRow
   | Code
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -625,7 +661,7 @@ export type CONTACTS_QUERY_RESULT = Array<{
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: WRITINGS_QUERY
-// Query: *[_type=="writings"] | order(_createdAt asc) {    title,    "slug": slug.current,    description,  }
+// Query: *[_type=="writings"] | order(_createdAt desc) {    title,    "slug": slug.current,    description,  }
 export type WRITINGS_QUERY_RESULT = Array<{
   title: Array<{
     children?: Array<{
@@ -634,9 +670,13 @@ export type WRITINGS_QUERY_RESULT = Array<{
       _type: "span";
       _key: string;
     }>;
-    style?: "normal";
+    style?: "h1" | "normal";
     listItem?: never;
-    markDefs?: null;
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
     level?: number;
     _type: "block";
     _key: string;
@@ -651,12 +691,161 @@ export type WRITINGS_QUERY_RESULT = Array<{
     }>;
     style?: "normal";
     listItem?: never;
-    markDefs?: null;
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
     level?: number;
     _type: "block";
     _key: string;
   }> | null;
 }>;
+
+// Source: ../web/src/lib/sanity/queries.ts
+// Variable: WRITING_BY_SLUG_QUERY
+// Query: *[_type=="writings" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    description,    "metaTitle": pt::text(title),    "metaDescription": pt::text(description),    metadataImage {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop},    componentID,    publishedAt,    body[] {      ...,      _type == "image" => {  asset->{    _ref,    _type,    url,    metadata {      lqip,      palette {        dominant {          background,          foreground        }      },      dimensions {        width,        height,        aspectRatio      }    }  },  alt,  hotspot,  crop},      _type == "code" => {        code,        language,        filename      }    }  }
+export type WRITING_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "h1" | "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  slug: string | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  metaTitle: string;
+  metaDescription: string;
+  metadataImage: {
+    asset: {
+      _ref: null;
+      _type: "sanity.imageAsset";
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+        palette: {
+          dominant: {
+            background: string | null;
+            foreground: string | null;
+          } | null;
+        } | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+          aspectRatio: number | null;
+        } | null;
+      } | null;
+    } | null;
+    alt: string | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  componentID: string | null;
+  publishedAt: string | null;
+  body: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "blockquote"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "code";
+        language: string | null;
+        filename: string | null;
+        code: string | null;
+        highlightedLines?: Array<number>;
+      }
+    | {
+        asset: {
+          _ref: null;
+          _type: "sanity.imageAsset";
+          url: string | null;
+          metadata: {
+            lqip: string | null;
+            palette: {
+              dominant: {
+                background: string | null;
+                foreground: string | null;
+              } | null;
+            } | null;
+            dimensions: {
+              width: number | null;
+              height: number | null;
+              aspectRatio: number | null;
+            } | null;
+          } | null;
+        } | null;
+        media?: unknown;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+        caption?: string;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "table";
+        rows?: Array<
+          {
+            _key: string;
+          } & TableRow
+        >;
+      }
+  > | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -668,6 +857,7 @@ declare module "@sanity/client" {
     '\n  *[_type=="gallery"] | order(orderRank) {\n    title,\n    images[] {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n}\n  }\n': GALLERY_QUERY_RESULT;
     '\n  *[_type=="project"] | order(orderRank) {\n    title,\n    "slug": slug.current,\n    description,\n    favicon {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n},\n    demo {\n      src {\n  asset->{\n    url\n  }\n},\n      thumbnail {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n}\n    },\n    links,\n    "stacks": stacks[] -> { name, key }\n  }\n': PROJECTS_QUERY_RESULT;
     '\n  *[_type=="contactLink"] {\n    key,\n    name,\n    link\n  }\n': CONTACTS_QUERY_RESULT;
-    '\n  *[_type=="writings"] | order(_createdAt asc) {\n    title,\n    "slug": slug.current,\n    description,\n  }\n': WRITINGS_QUERY_RESULT;
+    '\n  *[_type=="writings"] | order(_createdAt desc) {\n    title,\n    "slug": slug.current,\n    description,\n  }\n': WRITINGS_QUERY_RESULT;
+    '\n  *[_type=="writings" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    description,\n    "metaTitle": pt::text(title),\n    "metaDescription": pt::text(description),\n    metadataImage {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n},\n    componentID,\n    publishedAt,\n    body[] {\n      ...,\n      _type == "image" => {\n  asset->{\n    _ref,\n    _type,\n    url,\n    metadata {\n      lqip,\n      palette {\n        dominant {\n          background,\n          foreground\n        }\n      },\n      dimensions {\n        width,\n        height,\n        aspectRatio\n      }\n    }\n  },\n  alt,\n  hotspot,\n  crop\n},\n      _type == "code" => {\n        code,\n        language,\n        filename\n      }\n    }\n  }\n': WRITING_BY_SLUG_QUERY_RESULT;
   }
 }

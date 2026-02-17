@@ -1,22 +1,50 @@
 import {FileText} from 'lucide-react'
 import {defineField, defineType} from 'sanity'
 
-// Inline-only block for titles/descriptions (supports code, bold, italic - no block elements)
+// Inline-only block (supports code, bold, italic, links - no block-level heading)
 const inlineRichText = {
   type: 'array',
   of: [
     {
       type: 'block',
-      styles: [], // No heading styles - just normal text
-      lists: [], // No bullet/numbered lists
+      styles: [],
+      lists: [],
       marks: {
         decorators: [
           {title: 'Bold', value: 'strong'},
           {title: 'Italic', value: 'em'},
           {title: 'Code', value: 'code'},
         ],
-        annotations: [], // No links in titles
+        annotations: [
+          {
+            name: 'link',
+            type: 'object',
+            title: 'Link',
+            fields: [
+              {
+                name: 'href',
+                type: 'url',
+                title: 'URL',
+                validation: (rule: any) => rule.uri({scheme: ['http', 'https', 'mailto']}),
+              },
+            ],
+          },
+        ],
       },
+    },
+  ],
+}
+
+// Title block: same as inline but allows one heading style so title can be "Heading" or "Normal"
+const titleRichText = {
+  ...inlineRichText,
+  of: [
+    {
+      ...inlineRichText.of[0],
+      styles: [
+        {title: 'Normal', value: 'normal'},
+        {title: 'Heading', value: 'h1'},
+      ],
     },
   ],
 }
@@ -38,7 +66,7 @@ export const writingsType = defineType({
       name: 'title',
       title: 'Title',
       group: 'content',
-      ...inlineRichText,
+      ...titleRichText,
       validation: (rule: any) =>
         rule.required().error('Required to display the post title on the post section'),
     },
@@ -49,6 +77,30 @@ export const writingsType = defineType({
       group: 'content',
       ...inlineRichText,
     },
+    {
+      name: 'metadataImage',
+      title: 'Metadata image',
+      type: 'image',
+      group: 'content',
+      description:
+        'Image for Open Graph and social sharing (e.g. 1200×630). Falls back to first body image if empty.',
+      options: {hotspot: true},
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for accessibility and when the image cannot be displayed',
+          validation: (rule: any) =>
+            rule.required().warning('Alt text is recommended for metadata images'),
+        },
+      ],
+    },
+    defineField({
+      name: 'componentID',
+      type: 'string',
+      group: 'content',
+    }),
     defineField({
       name: 'slug',
       type: 'slug',
@@ -74,6 +126,7 @@ export const writingsType = defineType({
       group: 'content',
       of: [
         {type: 'block'},
+        {type: 'table'},
         {
           type: 'image',
           fields: [

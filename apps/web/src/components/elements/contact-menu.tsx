@@ -20,6 +20,7 @@ export default function ContactMenu({ className }: { className?: string }) {
       )}
     >
       {contacts.map(({ key, name, link }) => {
+        if (!name || !link) return null;
         if (key === "email") {
           return (
             <li key={key}>

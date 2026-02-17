@@ -37,7 +37,7 @@ export function HeroSection() {
         </div>
 
         <div className="text-base-expand flex flex-1 flex-col md:gap-8">
-          <article className="space-y-4 py-10 leading-[175%]">
+          <article className="max-w-md space-y-4 py-10 leading-[175%]">
             <p className="text-3xl-expand text-neutral-800">Hey, I'm AJ.</p>
             <p>
               Experienced Engineer with a proven track record in crafting

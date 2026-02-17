@@ -28,7 +28,7 @@ function FadeInLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function ReactQueryToastPromiseExample() {
+export function TanstackQueryToastPromise() {
   const [isPending, setIsPending] = useState(false);
   const [useToastPromise, setUseToastPromise] = useState(true);
 
@@ -91,7 +91,7 @@ export function ReactQueryToastPromiseExample() {
   }
 
   return (
-    <section id="react-query-toast-promise" className="full-width space-y-3">
+    <section id="tanstack-query-toast-promise" className="full-width space-y-3">
       <div
         aria-label="Component display"
         className={cn(
@@ -125,11 +125,7 @@ export function ReactQueryToastPromiseExample() {
           aria-label="Use toast.promise (loading then success/error)"
           className="mx-auto w-fit"
         >
-          Use{" "}
-          <code className="rounded bg-neutral-200 px-1 py-0.5 text-neutral-700">
-            toast.promise()
-          </code>{" "}
-          (loading → success/error)
+          Use <code>toast.promise()</code> (loading → success/error)
         </Checkbox>
       </div>
       <p

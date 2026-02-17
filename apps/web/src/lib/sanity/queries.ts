@@ -92,9 +92,32 @@ export const CONTACTS_QUERY = defineQuery(`
 `);
 
 export const WRITINGS_QUERY = defineQuery(`
-  *[_type=="writings"] | order(_createdAt asc) {
+  *[_type=="writings"] | order(_createdAt desc) {
     title,
     "slug": slug.current,
     description,
+  }
+`);
+
+export const WRITING_BY_SLUG_QUERY = defineQuery(`
+  *[_type=="writings" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    "metaTitle": pt::text(title),
+    "metaDescription": pt::text(description),
+    metadataImage ${imageWithMetadataFragment},
+    componentID,
+    publishedAt,
+    body[] {
+      ...,
+      _type == "image" => ${imageWithMetadataFragment},
+      _type == "code" => {
+        code,
+        language,
+        filename
+      }
+    }
   }
 `);

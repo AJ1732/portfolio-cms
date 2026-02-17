@@ -2,13 +2,21 @@
 
 import { createContext, type ReactNode, use, useMemo } from "react";
 
+import type {
+  CONTACTS_QUERY_RESULT,
+  STACKS_QUERY_RESULT,
+} from "@/types/studio";
+
 // ============================================
 // Types
 // ============================================
 
+type Stack = STACKS_QUERY_RESULT[number];
+type Contact = CONTACTS_QUERY_RESULT[number];
+
 type SanityDataContextValue = {
   stacks: Stack[];
-  stacksMap: Record<string, SanityImageWithMetadata>;
+  stacksMap: Record<string, Stack["icon"]>;
   contacts: Contact[];
 };
 
@@ -37,9 +45,9 @@ export function SanityDataProvider({
     () => ({
       // Stacks with lookup map
       stacks,
-      stacksMap: stacks.reduce<Record<string, SanityImageWithMetadata>>(
-        (accumulator, s) => {
-          accumulator[s.key.toLowerCase()] = s.icon;
+      stacksMap: stacks.reduce<Record<string, Stack["icon"]>>(
+        (accumulator, stack) => {
+          if (stack.key) accumulator[stack.key.toLowerCase()] = stack.icon;
           return accumulator;
         },
         {},

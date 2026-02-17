@@ -16,11 +16,11 @@ export const NAVLINKS: NavLinkType[] = [
     href: "/about",
     description: "Learn more about me.",
   },
-  // {
-  //   label: "Stuff I write",
-  //   href: "/writings",
-  //   description: "Read my thoughts about code and design",
-  // },
+  {
+    label: "Stuff I write",
+    href: "/writings",
+    description: "Read my thoughts about code and design",
+  },
   {
     label: "Reach Out",
     href: "/contact",

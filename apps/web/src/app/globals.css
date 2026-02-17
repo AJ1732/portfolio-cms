@@ -185,7 +185,7 @@
   }
 
   code {
-    @apply rounded bg-orange-50/70 py-0.5 pr-0.5 pl-1 text-[0.8em] text-orange-600;
+    @apply rounded bg-neutral-50 py-0.5 pr-0.5 pl-1 text-[0.8em] font-light text-neutral-900;
   }
 
   .section-heading {
@@ -361,6 +361,14 @@
   font-size: max(8rem, 8vw);
 }
 
+@utility spacer {
+  float: left;
+  width: 100px; /* How much space to push away at the top */
+  height: 200px; /* How far down the narrowing effect lasts */
+  /* Creates a triangle that is wide at the top and narrow at the bottom */
+  shape-outside: polygon(0 0, 100% 0, 0 100%);
+}
+
 /* ==================== SCROLLBAR UTILITIES ==================== */
 @utility no-scrollbar {
   &::-webkit-scrollbar {
@@ -415,19 +423,19 @@
 }
 
 @utility custom-underline-round-dots {
-  --color-underline: oklch(55.6% 0 0);
+  --color-underline: color-mix(in srgb, currentColor 20%, transparent);
 
   text-decoration: none;
   background-image: radial-gradient(
     circle,
-    var(--color-underline) 50%,
-    transparent 55%
+    var(--color-underline) 55%,
+    transparent 60%
   );
   background-position: 0 90%;
-  background-size: 15px 2px;
+  background-size: 0.4em 0.05em;
   background-repeat: repeat-x;
 
   &:hover {
-    --color-underline: oklch(70.5% 0.213 47.604);
+    --color-underline: color-mix(in srgb, currentColor 80%, transparent);
   }
 }

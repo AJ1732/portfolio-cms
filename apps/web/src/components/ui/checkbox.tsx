@@ -104,7 +104,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
     <label
       htmlFor={id}
       className={cn(
-        "flex cursor-pointer touch-manipulation items-start gap-3",
+        "flex cursor-pointer touch-manipulation items-start gap-2",
         disabled && "cursor-not-allowed opacity-50",
         className,
       )}

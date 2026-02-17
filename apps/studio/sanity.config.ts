@@ -1,4 +1,5 @@
 import {codeInput} from '@sanity/code-input'
+import {table} from '@sanity/table'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {presentationTool} from 'sanity/presentation'
@@ -36,6 +37,7 @@ export default defineConfig({
     }),
     visionTool(),
     codeInput(),
+    table(),
   ],
 
   schema: {

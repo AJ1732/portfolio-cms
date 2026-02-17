@@ -1,16 +1,41 @@
 import type { Metadata } from "next";
-import { PortableText } from "next-sanity";
-import Link from "next/link";
+import Script from "next/script";
 
 import { ClipUpText, ScreenFitText } from "@/components/ui";
 import { getWritings } from "@/lib/sanity/getters";
-import { cn } from "@/lib/utils";
-import { titleComponents } from "@/sections/writings-page/components";
+import { WritingListCard } from "@/sections/writings-page/components";
 
 export const metadata: Metadata = {
-  title: "Writings",
+  title:
+    "Writings | Ejemen Iboi — Pixel Perfect Engineer · TypeScript · Pixel-Perfect UI · Design · React / Next.js",
   description:
     "Articles and thoughts on web development, React, TypeScript, software engineering and design.",
+  openGraph: {
+    title: "Writings — Ejemen Iboi",
+    description:
+      "Articles and thoughts on web development, React, TypeScript, software engineering and design.",
+    url: "https://ejemeniboi.com/writings",
+    images: [
+      {
+        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o2KglYPExIP62Eduest1eUdWx/aj1732-writings.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Writings by Ejemen Iboi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Writings — Ejemen Iboi",
+    description:
+      "Articles and thoughts on web development, React, TypeScript, software engineering and design.",
+    images: [
+      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o2KglYPExIP62Eduest1eUdWx/aj1732-writings.jpg",
+    ],
+  },
+  alternates: {
+    canonical: "/writings",
+  },
 };
 
 export default async function WritingsPage() {
@@ -18,39 +43,38 @@ export default async function WritingsPage() {
 
   return (
     <main className="content-grid relative min-h-svh py-14 *:col-start-1 *:row-start-1 lg:py-20">
+      {/* JSON-LD for Blog listing */}
+      <Script
+        id="writings-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            name: "Writings — Ejemen Iboi",
+            url: "https://ejemeniboi.com/writings",
+            description:
+              "Articles and thoughts on web development, React, TypeScript, software engineering and design.",
+            author: {
+              "@type": "Person",
+              name: "Ejemen Iboi",
+              url: "https://ejemeniboi.com",
+            },
+          }),
+        }}
+      />
+
       <ScreenFitText className="opacity-30">
         <ClipUpText>Writings</ClipUpText>
       </ScreenFitText>
 
       <ol
+        reversed
         aria-labelledby="writings-heading"
         className="z-10 mt-auto w-full list-decimal space-y-6 pt-20 pl-4"
       >
         {writings.map((writing) => (
-          <li
-            key={writing.slug}
-            className="mx-auto"
-            style={{ maxWidth: "max(50rem, 50vw)" }}
-          >
-            <Link
-              href={`/writings/${writing.slug}`}
-              className={cn(
-                "text-xl-expand cursor-pointer",
-                "prose prose-p:my-0 prose-code:after:content-[''] prose-code:before:content-[''] prose-code:font-light",
-              )}
-            >
-              <PortableText
-                value={writing.title}
-                components={titleComponents}
-              />
-              <span className="text-base-expand text-neutral-500">
-                <PortableText
-                  value={writing.description}
-                  components={titleComponents}
-                />
-              </span>
-            </Link>
-          </li>
+          <WritingListCard key={writing.slug} writing={writing} />
         ))}
       </ol>
     </main>

@@ -1,26 +1,26 @@
 import Link from "next/link";
+import { PortableText } from "next-sanity";
 
 import { VSChevronLeft } from "@/assets/svgs";
+import type { WRITING_BY_SLUG_QUERY_RESULT } from "@/types/studio";
 
-interface WritingHeaderProps {
+import { headerComponents, textComponents } from "./portable";
+
+interface WritingHeaderProps extends Pick<
+  NonNullable<WRITING_BY_SLUG_QUERY_RESULT>,
+  "title" | "description"
+> {
   number: number;
-  title: React.ReactNode;
-  description: React.ReactNode;
-  publishedAt: {
-    display: string;
-    datetime: string;
-  };
 }
 
 export function WritingHeader({
   number,
   title,
   description,
-  publishedAt,
 }: WritingHeaderProps) {
   return (
-    <header>
-      <nav aria-label="Back to home">
+    <header className="text-balance">
+      <nav aria-label="Back to writings">
         <Link
           href="/writings"
           className="group mt-0.5 mb-6 -ml-1 flex items-center gap-2"
@@ -35,23 +35,19 @@ export function WritingHeader({
         </Link>
       </nav>
 
-      <h1 className="mb-4">
-        <span className="block">#{number}</span>
-        <span className="text-5xl-expand mt-2 leading-[120%] tracking-[0.01em] text-pretty">
-          {title}
+      <hgroup className="mb-4 space-y-4">
+        <span
+          aria-hidden="true"
+          className="text-base-expand block text-neutral-500"
+        >
+          #{number}
         </span>
-      </h1>
+        {title && <PortableText value={title} components={textComponents} />}
+      </hgroup>
 
-      <p className="text-base-expand text-neutral-700">{description}</p>
-
-      <dl className="text-sm-expand mt-1.5 flex items-center gap-1">
-        <dt className="sr-only">Published date</dt>
-        <dd>
-          <time dateTime={publishedAt.datetime} className="text-orange-500">
-            {publishedAt.display}
-          </time>
-        </dd>
-      </dl>
+      {description && description.length > 0 && (
+        <PortableText value={description} components={headerComponents} />
+      )}
     </header>
   );
 }

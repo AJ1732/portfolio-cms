@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://ejemeniboi.com/about",
     images: [
       {
-        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/ef11f328d022ba5f53dc3708443553500bae7c7f-4800x2520.png",
+        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o30huGnuuFCl4hufcvbK4H6jo/aj1732-about.jpg",
         width: 1200,
         height: 630,
         alt: "About Ejemen Iboi",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description:
       "About Ejemen Iboi — software engineer focused on pixel-perfect UIs and performance.",
     images: [
-      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/ef11f328d022ba5f53dc3708443553500bae7c7f-4800x2520.png",
+      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o30huGnuuFCl4hufcvbK4H6jo/aj1732-about.jpg",
     ],
   },
   alternates: {

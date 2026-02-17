@@ -2,9 +2,10 @@
 
 import { BlurImage, HorizontalScrollWithLenis } from "@/components/elements";
 import { buildSanityImageUrl, getCroppedAspectRatio } from "@/lib/sanity/image";
+import type { GALLERY_QUERY_RESULT } from "@/types/studio";
 
 type GallerySectionProps = {
-  gallery: Gallery[];
+  gallery: GALLERY_QUERY_RESULT;
 };
 
 export default function GallerySection({ gallery }: GallerySectionProps) {
@@ -21,7 +22,7 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
               {item.title}
             </h3>
             <div className="space-y-1">
-              {item.images.map((image, index) => {
+              {item.images?.map((image, index) => {
                 const dimensions = image.asset?.metadata?.dimensions;
                 const lqip = image.asset?.metadata?.lqip || "";
                 const imageUrl = buildSanityImageUrl(image, {
@@ -40,7 +41,7 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
                     <BlurImage
                       src={imageUrl}
                       lqip={lqip}
-                      alt={image.alt || item.title}
+                      alt={image.alt || item.title || ""}
                       width={dimensions?.width || 400}
                       height={dimensions?.height || 400}
                       className="no-copy size-full object-cover"

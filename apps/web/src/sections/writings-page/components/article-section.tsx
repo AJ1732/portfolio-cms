@@ -14,7 +14,7 @@ export function ArticleSection({
   className,
 }: ArticleSectionProps) {
   return (
-    <section
+    <article
       aria-labelledby={id}
       className={cn(
         "space-y-4 leading-[200%]",
@@ -26,6 +26,6 @@ export function ArticleSection({
         {title}
       </h2>
       {children}
-    </section>
+    </article>
   );
 }

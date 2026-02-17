@@ -1,10 +1,12 @@
+import type { CONTACTS_QUERY_RESULT } from "@/types/studio";
+
 import { GSAPProvider } from "./gsap";
 import { LenisProvider } from "./react-lenis";
 import { SanityDataProvider } from "./sanity-data";
 
 type ProviderProps = {
   children: React.ReactNode;
-  contacts: Contact[];
+  contacts: CONTACTS_QUERY_RESULT;
 };
 
 export function Provider({ children, contacts }: ProviderProps) {

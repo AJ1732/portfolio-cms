@@ -76,7 +76,7 @@ export function getSanityImageDimensions(
   // If image object with metadata, use that first
   if (typeof image === "object" && image.asset?.metadata?.dimensions) {
     const { width, height } = image.asset.metadata.dimensions;
-    return { width, height };
+    if (width != null && height != null) return { width, height };
   }
 
   // Fallback to parsing URL
@@ -108,11 +108,14 @@ export function getCroppedAspectRatio(image: SanityImageWithMetadata): number {
   const dimensions = image.asset?.metadata?.dimensions;
   if (!dimensions) return 1;
 
-  const { width, height } = dimensions;
+  const width = dimensions.width ?? 0;
+  const height = dimensions.height ?? 0;
+  if (!width || !height) return 1;
+
   const crop = image.crop;
 
   if (!crop) {
-    return dimensions.aspectRatio || width / height;
+    return dimensions.aspectRatio ?? width / height;
   }
 
   // Calculate cropped dimensions

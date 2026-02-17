@@ -1,9 +1,9 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import Script from "next/script";
+import { VisualEditing } from "next-sanity/visual-editing";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 
@@ -15,6 +15,7 @@ import { SanityLive } from "@/lib/sanity/live";
 import { Provider } from "@/provider";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ejemeniboi.com"),
   title:
     "Ejemen Iboi — Pixel Perfect Engineer · Frontend · TypeScript · Pixel-Perfect UI · Design · React / Next.js",
   description:
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
       "Software Engineer building pixel-perfect, accessible and high-performance UIs. Open to SWE roles. View projects, case studies, and contact info.",
     images: [
       {
-        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/ef11f328d022ba5f53dc3708443553500bae7c7f-4800x2520.png",
+        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o1kgnWOPJNoNEeELPtFddSkRL/aj1732-engineer.jpg",
         width: 1200,
         height: 630,
         alt: "Ejemen Iboi Pixel Perfect Engineer · Frontend Portfolio",
@@ -66,8 +67,22 @@ export const metadata: Metadata = {
     description:
       "Software Engineer building pixel-perfect, accessible and high-performance UIs. Open to SWE roles. View projects, case studies, and contact info.",
     images: [
-      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/ef11f328d022ba5f53dc3708443553500bae7c7f-4800x2520.png",
+      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o1kgnWOPJNoNEeELPtFddSkRL/aj1732-engineer.jpg",
     ],
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

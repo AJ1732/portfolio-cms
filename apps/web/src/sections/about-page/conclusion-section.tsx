@@ -28,6 +28,7 @@ export default function ConclusionSection() {
           className="mt-4 flex justify-center gap-2 space-y-8 uppercase sm:justify-evenly lg:p-8"
         >
           {contacts.map(({ key, name, link }) => {
+            if (!name || !link) return null;
             if (key === "email") {
               return (
                 <li key={key} role="listitem">

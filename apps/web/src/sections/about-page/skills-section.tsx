@@ -20,12 +20,14 @@ export default function SkillsSection() {
         {stacks.map(({ name, icon }) => (
           <figure key={name} className="flex flex-col items-center">
             <div className="relative flex size-16 items-center justify-center overflow-hidden rounded-full bg-[radial-gradient(circle_at_center,#fed7aacc_10%,transparent_90%)]">
-              <SanityImage
-                image={icon}
-                width={40}
-                height={40}
-                className="size-6 md:size-7 lg:size-8 [&>img]:object-contain"
-              />
+              {icon && (
+                <SanityImage
+                  image={icon}
+                  width={40}
+                  height={40}
+                  className="size-6 md:size-7 lg:size-8 [&>img]:object-contain"
+                />
+              )}
             </div>
             <figcaption className="font-bebas-neue text-sm-expand mt-2 text-center tracking-wide text-neutral-600">
               {name}

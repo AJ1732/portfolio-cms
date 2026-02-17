@@ -6,6 +6,7 @@ import { SanityImage } from "@/components/elements/sanity-image";
 import { useMotionInView } from "@/hooks/use-motion-in-view";
 import { buildSanityImageUrl } from "@/lib/sanity/image";
 import { cn } from "@/lib/utils";
+import type { PROJECTS_QUERY_RESULT } from "@/types/studio";
 
 export default function ProjectCard({
   title,
@@ -14,7 +15,7 @@ export default function ProjectCard({
   demo,
   stacks,
   links,
-}: Project) {
+}: PROJECTS_QUERY_RESULT[number]) {
   // Only play video if in viewport
   const [videoRef, inView] = useMotionInView<HTMLVideoElement>({
     once: true,
@@ -22,11 +23,10 @@ export default function ProjectCard({
   });
 
   // Extract URLs from Sanity objects
-  const videoSource = demo.src?.asset?.url || "";
-  const thumbnailUrl = buildSanityImageUrl(demo.thumbnail, {
-    width: 800,
-    quality: 80,
-  });
+  const videoSource = demo?.src?.asset?.url || "";
+  const thumbnailUrl = demo?.thumbnail
+    ? buildSanityImageUrl(demo.thumbnail, { width: 800, quality: 80 })
+    : "";
 
   return (
     <article
@@ -43,15 +43,17 @@ export default function ProjectCard({
       >
         {/* TITLE AND FAVICON */}
         <header className="flex flex-col justify-end gap-2 px-4 pt-6 pb-2 md:gap-4 md:py-6">
-          <SanityImage
-            image={favicon}
-            width={200}
-            height={200}
-            className="aspect-square size-14 overflow-hidden rounded-2xl object-cover"
-          />
+          {favicon && (
+            <SanityImage
+              image={favicon}
+              width={200}
+              height={200}
+              className="aspect-square size-14 overflow-hidden rounded-2xl object-cover"
+            />
+          )}
           <h3 id={`project-${title}`} className="xl:text-lg-expand uppercase">
             <Link
-              href={links.demo}
+              href={links?.demo ?? "#"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${title} (opens in new tab)`}
@@ -73,10 +75,10 @@ export default function ProjectCard({
           </p>
 
           <dl className="text-xs-expand flex flex-wrap gap-y-2 uppercase">
-            {stacks.map((stack, index) => (
+            {stacks?.map((stack, index) => (
               <dt key={stack.key}>
                 {stack.name}
-                {index !== stacks.length - 1 && (
+                {index !== (stacks?.length ?? 0) - 1 && (
                   <span className="mx-2 text-neutral-400">•</span>
                 )}
               </dt>

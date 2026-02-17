@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: "https://ejemeniboi.com/works",
     images: [
       {
-        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/ef11f328d022ba5f53dc3708443553500bae7c7f-4800x2520.png",
+        url: "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o2JmzRtVfbko0cbBrlbza6ONu/aj1732-works.jpg",
         width: 1200,
         height: 630,
         alt: "Ejemen Iboi Works",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Projects and case studies by Ejemen Iboi, Software Engineer · Frontend",
     images: [
-      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/ef11f328d022ba5f53dc3708443553500bae7c7f-4800x2520.png",
+      "https://cdn.sanity.io/media-libraries/mlu3DBU0QaKb/images/containers/39o2JmzRtVfbko0cbBrlbza6ONu/aj1732-works.jpg",
     ],
   },
   alternates: {
