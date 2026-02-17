@@ -78,9 +78,7 @@ export default async function WritingPage({
   return (
     <main
       className="content-grid text-base-expand place-content-start space-y-8 py-14 lg:py-20"
-      style={
-        { "--content-max-width": "max(50rem, 50vw)" } as React.CSSProperties
-      }
+      style={{ "--content-max-width": "60ch" } as React.CSSProperties}
     >
       <WritingHeader
         number={articleNumber}
@@ -92,7 +90,7 @@ export default async function WritingPage({
 
       <section
         aria-label="Article content"
-        className={cn("space-y-2 leading-[250%]")}
+        className={cn("space-y-2 leading-[180%]")}
       >
         <PortableText value={writing.body ?? []} components={textComponents} />
       </section>

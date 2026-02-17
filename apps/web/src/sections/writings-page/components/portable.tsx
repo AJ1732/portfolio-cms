@@ -55,7 +55,7 @@ export const textComponents: PortableTextComponents = {
       <h3 className="text-xl-expand mt-6 mb-2 font-semibold">{children}</h3>
     ),
     blockquote: ({ children }) => (
-      <div className="text-base-expand border-l-2 border-orange-500 pl-4 leading-[200%]">
+      <div className="text-base-expand border-l-2 border-orange-500 pl-4 leading-[150%]">
         {children}
       </div>
     ),
