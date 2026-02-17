@@ -1,0 +1,4 @@
+[build]
+  base = "/"
+  command = "pnpm --filter portfolio-next build"
+  publish = "apps/web/.next"

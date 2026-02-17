@@ -1,5 +1,8 @@
 node_modules
 .DS_Store
+
+# Only the root lockfile should exist in a pnpm workspace
+apps/*/pnpm-lock.yaml
 *.pem
 *.log
 *.local
